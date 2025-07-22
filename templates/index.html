@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Email Spam Detection</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Email Spam Detection</h1>
+        <form method="post">
+            <textarea name="message" rows="6" cols="60" placeholder="Enter your email message here..." required></textarea><br>
+            <button type="submit">Check</button>
+        </form>
+        {% if prediction %}
+            <div class="result">
+                <h2>Result: {{ prediction }}</h2>
+                <p>Spam Probability: {{ '%.2f' % (proba * 100) }}%</p>
+            </div>
+        {% endif %}
+        <div class="metrics">
+            <h3>Model Evaluation</h3>
+            <ul>
+                <li>Accuracy: {{ '%.2f' % (metrics['accuracy'] * 100) }}%</li>
+                <li>Precision: {{ '%.2f' % (metrics['precision'] * 100) }}%</li>
+                <li>Recall: {{ '%.2f' % (metrics['recall'] * 100) }}%</li>
+            </ul>
+            <h4>Confusion Matrix</h4>
+            <pre>{{ metrics['confusion'] }}</pre>
+        </div>
+    </div>
+</body>
+</html>
